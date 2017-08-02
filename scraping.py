@@ -6,9 +6,10 @@ import os.path
 
 class Scraping:
 	#指定URLのhtmlを返す関数
-	def get_html(self, url):
+	def get_html(self, url, header):
 		html = ""
-		f = urllib2.urlopen(url)
+		req = urllib2.Request(url, None, header)
+		f = urllib2.urlopen(req)
 		html = f.read()
 		f.close()
 		return html
@@ -90,8 +91,8 @@ class Scraping:
 		return list_buf1
 
 	#urlからfind_listで見つかった文字列リストを返す処理
-	def find_in_html(self, url, find_list):
+	def find_in_html(self, url, find_list, header):
 		return self.find_to_find(
-			self.get_html(url),
+			self.get_html(url, header),
 			find_list
 		)
